@@ -12,8 +12,12 @@ def create_app():
     app = Flask(__name__)
 
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-troque-em-producao")
+    
+    db_path = os.path.join(os.getcwd(), "data", "agenda.db")
+    os.makedirs(os.path.dirname(db_path), exist_ok=True)
+    
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
-        "DATABASE_URL", "sqlite:///" + os.path.join(os.getcwd(), "data", "agenda.db")
+        "DATABASE_URL", "sqlite:///" + db_path
     )
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["MOCK_API_URL"] = os.getenv("MOCK_API_URL", "http://localhost:5001")
