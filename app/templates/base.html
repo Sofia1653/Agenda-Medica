@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Agenda Médica{% endblock %}</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+        font-family: -apple-system, Arial, sans-serif;
+        background: #f2f4f7; 
+        margin: 0; 
+        color:#1f2937;
+    }
+    .header {
+        background:#2563eb; 
+        color:#fff; 
+        padding:1rem 2rem;
+        display:flex; 
+        justify-content:space-between; 
+        align-items:center;
+    }
+    .header a { 
+        color:#fff; 
+        text-decoration:none; 
+        font-size:.9rem; 
+    }
+    .descricao { 
+        max-width: 1100px; 
+        margin: 2rem auto; 
+        padding: 0 1rem; 
+    }
+    .card { 
+        background:#fff; 
+        border-radius:8px; 
+        padding:1.5rem 2rem; 
+        box-shadow:0 1px 4px rgba(0,0,0,.08); 
+    }
+    .alerta { 
+        padding:.75rem 1rem; 
+        border-radius:6px; 
+        margin-bottom:1rem; 
+        font-size:.9rem; 
+    }
+    .alerta.erro { 
+        background:#fee2e2; 
+        color:#991b1b; 
+        border:1px solid #fecaca; 
+    }
+    .alerta.info { 
+        background:#dbeafe; 
+        color:#1e3a8a; 
+        border:1px solid #bfdbfe; 
+    }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+
+<body>
+  <div class="header">
+    <strong>Agenda Médica</strong>
+    {% if usuario_nome %}
+      <span>Olá, {{ usuario_nome }} · <a href="{{ url_for('auth.logout') }}">Sair</a></span>
+    {% endif %}
+  </div>
+
+  <div class="descricao">
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+      {% for categoria, msg in mensagens %}
+        <div class="alerta {{ categoria }}">{{ msg }}</div>
+      {% endfor %}
+    {% endwith %}
+    {% block descricao %}{% endblock %}
+  </div>
+  {% block script %}{% endblock %}
+</body>
+</html>
