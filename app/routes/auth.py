@@ -20,7 +20,7 @@ def login():
     if request.method == "GET":
         return render_template("login.html")
 
-    identificador = (request.form.get("usuario") or "").strip()
+    identificador = (request.form.get("usuario") or request.form.get("email") or "").strip()
     senha = request.form.get("senha") or ""
 
     if not identificador or not senha:
@@ -32,7 +32,7 @@ def login():
             (Usuario.username == identificador) | (Usuario.email == identificador)
         ).first()
 
-        credenciais_validas = usuario is not None and usuario.checar_senha(senha)
+        credenciais_validas = usuario is not None and usuario.senha == senha
 
         db.session.add(LogAcesso(
             usuario=identificador,
