@@ -1,0 +1,29 @@
+# Ambiente virtual
+venv/
+env/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Banco de dados local
+data/
+*.db
+*.sqlite
+*.sqlite3
+instance/
+
+# Variáveis de ambiente / segredos
+.env
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
